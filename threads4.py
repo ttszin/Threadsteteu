@@ -13,8 +13,12 @@ def multiply(matriz1, matriz2, inicio, fim, id, matriz_resultante):
     #Percorre as linhas da matriz
     for i in range(inicio, fim):
         #Percorre as colunas da matriz
-        for j in range(matriz1.shape[1]):
-            matriz_resultante[i, j] = matriz1[i, j] * matriz2[i, j]
+        for j in range(matriz2.shape[1]):
+            soma = 0
+            for k in range(matriz1.shape[1]):
+                soma += matriz1[i][k] * matriz2[k][j]
+            matriz_resultante[i][j] = soma
+            
     logging.info(f"Thread {id}: finishing")
     return matriz_resultante
 
@@ -25,13 +29,12 @@ def main():
 
     num_threads = int(input("Insira o número de Threads a ser utilizada: "))
     m = int(input("Insira o número de linhas da primeira matriz: "))
-    n = int(input("Insira o número de colunas da primeira matriz: "))
-    n = int(input("Insira o número de linhas da segunda matriz: "))
+    n = int(input("Insira o número de colunas da primeira matriz e de linhas da segunda matriz: "))
     p = int(input("Insira o número de colunas da segunda matriz: "))
 
     matriz1 = np.random.randint(0, 100, size=(m, n))
-    matriz2 = np.random.randint(0, 100, size=(m, n))
-    matriz_resultado = np.zeros((m, n))
+    matriz2 = np.random.randint(0, 100, size=(n, p))
+    matriz_resultado = np.zeros((m, p))
 
     # Se há mais threads que linhas, use apenas 'm' threads (uma por linha)
     num_threads = min(num_threads, m)
