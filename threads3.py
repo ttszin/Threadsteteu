@@ -1,3 +1,5 @@
+#Matriz transposta
+
 import time
 import threading
 import logging
