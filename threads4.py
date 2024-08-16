@@ -10,11 +10,12 @@ import numpy as np
 
 def multiply(matriz1, matriz2, inicio, fim, id, matriz_resultante):
     logging.info(f"Thread {id}: starting")
-    #Percorre as linhas da matriz
+    #Percorre as linhas de acordo com inicio e fim
     for i in range(inicio, fim):
-        #Percorre as colunas da matriz
+        #Percorre as colunas da matriz 2
         for j in range(matriz2.shape[1]):
             soma = 0
+            #Percorre as colunas da matriz 1
             for k in range(matriz1.shape[1]):
                 soma += matriz1[i][k] * matriz2[k][j]
             matriz_resultante[i][j] = soma
@@ -45,6 +46,7 @@ def main():
 
     #Percorre as threads
     for i in range(num_threads):
+        #Definindo início e fim das threads
         inicio = i * num_linhas_por_thread
         fim = inicio + num_linhas_por_thread
         if i == num_threads - 1:
