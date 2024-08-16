@@ -29,6 +29,9 @@ def main():
     matriz2 = np.random.randint(0, 100, size=(m, n))
     matriz_resultado = np.zeros((m, n))
 
+    # Se há mais threads que linhas, use apenas 'm' threads (uma por linha)
+    num_threads = min(num_threads, m)
+
     threads = []
     num_linhas_por_thread = m // num_threads
     resto = m % num_threads  # Restante das linhas que não foi dividido igualmente
